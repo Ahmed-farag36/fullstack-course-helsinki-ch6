@@ -1,12 +1,13 @@
 import React from "react";
 import { voteAnecdoteAction } from "../reducers/anecdoteReducer";
+import { showNotificationAction } from "../reducers/notificationReducer";
 
 export default props => {
   const { anecdotes } = props.store.getState();
 
-  const vote = id => {
-    console.log("vote", id);
+  const vote = (id, content) => {
     props.store.dispatch(voteAnecdoteAction(id));
+    props.store.dispatch(showNotificationAction(`You voted "${content}"`));
   };
 
   return (
@@ -18,7 +19,9 @@ export default props => {
             <div>{anecdote.content}</div>
             <div>
               has {anecdote.votes}
-              <button onClick={() => vote(anecdote.id)}>vote</button>
+              <button onClick={() => vote(anecdote.id, anecdote.content)}>
+                vote
+              </button>
             </div>
           </div>
         ))}
