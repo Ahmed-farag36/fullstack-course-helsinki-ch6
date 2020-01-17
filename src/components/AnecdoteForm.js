@@ -3,11 +3,11 @@ import React from "react";
 import { createAnecdoteAction } from "../reducers/anecdoteReducer";
 import { showNotificationAction } from "../reducers/notificationReducer";
 
-export default props => {
+export default ({ store }) => {
   const createAnecdote = e => {
     e.preventDefault();
-    props.store.dispatch(createAnecdoteAction(e.target.content.value));
-    props.store.dispatch(
+    store.dispatch(createAnecdoteAction(e.target.content.value));
+    store.dispatch(
       showNotificationAction(
         `Anecdote "${e.target.content.value}" added successfully`
       )
