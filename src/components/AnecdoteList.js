@@ -2,7 +2,7 @@ import React from "react";
 import { voteAnecdoteAction } from "../reducers/anecdoteReducer";
 
 export default props => {
-  const anecdotes = props.store.getState();
+  const { anecdotes } = props.store.getState();
 
   const vote = id => {
     console.log("vote", id);
