@@ -30,6 +30,8 @@ const reducer = (state = initialState, action) => {
         }
         return anecdote;
       });
+    case "CREATE_ANECDOTE":
+      return initialState.concat(action.data);
     default:
       return state;
   }
