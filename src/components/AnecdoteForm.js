@@ -1,29 +1,36 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import { createAnecdoteAction } from "../reducers/anecdoteReducer";
 import { showNotificationAction } from "../reducers/notificationReducer";
+import FilterAnecdotes from "./FilterAnecdotes";
 
-export default ({ store }) => {
+const AnecdoteForm = ({ createAnecdoteAction, showNotificationAction }) => {
   const createAnecdote = e => {
     e.preventDefault();
-    store.dispatch(createAnecdoteAction(e.target.content.value));
-    store.dispatch(
-      showNotificationAction(
-        `Anecdote "${e.target.content.value}" added successfully`
-      )
-    );
-    e.target.content.value = "";
+    const { content } = e.target;
+    createAnecdoteAction(content.value);
+    showNotificationAction(`Anecdote "${content.value}" added successfully`);
+    content.value = "";
   };
 
   return (
     <React.Fragment>
-      <h2>create new</h2>
+      <FilterAnecdotes />
       <form onSubmit={createAnecdote}>
-        <div>
-          <input name="content" />
-        </div>
+        <label>Create</label>
+        <input name="content" />
+
         <button>create</button>
       </form>
     </React.Fragment>
   );
 };
+
+export default connect(
+  null,
+  {
+    createAnecdoteAction,
+    showNotificationAction
+  }
+)(AnecdoteForm);

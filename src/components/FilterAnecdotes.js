@@ -1,12 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import { filterAction } from "../reducers/filterReducer";
 
-export default ({ store: { dispatch } }) => (
+const FilterAnecdotes = ({ filterAction }) => (
   <div>
     <label>Filter </label>
-    <input
-      onChange={({ target: { value } }) => dispatch(filterAction(value))}
-    />
+    <input onChange={({ target: { value } }) => filterAction(value)} />
   </div>
 );
+
+export default connect(
+  null,
+  { filterAction }
+)(FilterAnecdotes);
